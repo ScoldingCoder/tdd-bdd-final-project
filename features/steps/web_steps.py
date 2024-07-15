@@ -109,24 +109,19 @@ def step_impl(context, element_name):
 
 @when('I press the "{button}" button')
 def step_impl(context, button):
-    # Generate the button_id by converting the button name to 
-    #lowercase and appending '-btn'
-    # Use context.driver.find_element_by_id(button_id) line to find the 
-    #button element on the web page based on the generated button_id and 
-    #call the click() method 
-    def step_impl(context, button):
     button_id = button.lower() + '-btn'
     context.driver.find_element_by_id(button_id).click()
 
 @then('I should see "{name}" in the results')
 def step_impl(context, name):
-    found= WebDriverWait(context.driver, context.wait_seconds).until(
-       expected_conditions.text_to_be_present_in_element_value(
-        (By.ID, "search_results"),
-        name
-      )
+    found = WebDriverWait(context.driver, context.wait_seconds).until(
+        expected_conditions.text_to_be_present_in_element(
+            (By.ID, 'search_results'),
+            name
+        )
     )
-     assert(found)
+    assert(found)
+  
 
 @then('I should not see "{name}" in the results')
 def step_impl(context, name):
